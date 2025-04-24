@@ -6,14 +6,17 @@ def marks(word_guess: str, word_ans: str) -> list:
     # 1 - буква есть в слове, но не на этом месте
     # 0 - остальное
     marks_list = [0 for elem in range(5)]
-    for order in range(0, 5):
-        if word_guess[order] == word_ans[order]:
-            marks_list[order] = 2
-        else:
-            for set in range(0, 5):
-                if word_guess[order] == word_ans[set] and order != set:
-                    marks_list[order] = 1
-                    break
+    word_ans_copy = [x for x in word_ans]
+    for letter in range(0, 5):
+        if word_guess[letter] == word_ans_copy[letter]:
+            marks_list[letter] = 2
+            word_ans_copy[letter] = ' '
+    for letter in range(0, 5):
+        if marks_list[letter] != 2:
+            for true_letter in range(0, 5):
+                if word_guess[letter] == word_ans_copy[true_letter]:
+                    marks_list[letter] = 1
+                    word_ans_copy[true_letter] = ' '
     return marks_list
 
 
