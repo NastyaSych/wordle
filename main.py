@@ -1,11 +1,7 @@
 import random
 
 import utilities
-from localization import localization as lc
-
-# начальные строки
-choose_lang = "Choose your language (eng/ru):"
-choose_lang_corr = "Plese, enter your language correctly!"
+from localization_main import localization as lc
 
 
 def mode(loc):
@@ -47,11 +43,11 @@ def mode(loc):
 def main():
     lan = ""
     while lan != "eng" and lan != "ru":
-        lan = input(choose_lang)
+        lan = input(lc["eng"]["message"]["choose lang"])
         if lan == "eng" or lan == "ru":
             mode(lc[lan])
         else:
-            print(choose_lang_corr)
+            print(lc["eng"]["message"]["choose lang corr"])
 
 
 if __name__ == "__main__":
