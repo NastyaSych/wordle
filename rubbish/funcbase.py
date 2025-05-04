@@ -3,7 +3,9 @@ import pygame
 pygame.init()
 
 
-def get_mes(message: str, font="RussianRail.otf", size=30) -> pygame.surface.Surface:
+def get_mes(
+    message: str, font="font/RussianRail.otf", size=30
+) -> pygame.surface.Surface:
     f = pygame.font.Font(font, size)
     message_ren = f.render(message, False, (111, 196, 169))
     return message_ren

@@ -12,11 +12,11 @@ pygame.display.set_caption("Wordle")
 clock = pygame.time.Clock()
 
 # шрифты
-comic_font = pygame.font.Font("Pixar.ttf", 50)
-trash_font = pygame.font.Font("Trash.ttf", 50)
+comic_font = pygame.font.Font("font/Pixar.ttf", 50)
+trash_font = pygame.font.Font("font/Trash.ttf", 50)
 game_active = True
 
-duck_surf = pygame.image.load("duck.jpg").convert()
+duck_surf = pygame.image.load("pictures/duck.jpg").convert()
 
 # input_box = pygame.Rect(175, 375, 100, 50) # (x, y, width, high)
 
