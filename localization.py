@@ -8,7 +8,7 @@ localization = {
         "message": {
             "choose lang": "Choose your language:",
             "welcome": "Welcome to wordle!",
-            "welcome2": "You have 6 attempt to guess the word.",
+            "welcome2": "You have 5 attempt to guess the word.",
             "word request": "Enter your guess: ",
             "congrats": "Congratulations! You guessed the word!",
             "bad result": "Unfortunately, you lost...",
@@ -46,7 +46,7 @@ localization = {
         "vocab": ["печка", "лесок", "пульт", "рвота", "культ", "невод"],
         "message": {
             "welcome": "Добро пожаловать в wordle!",
-            "welcome2": " У вас есть 6 попыток, чтобы угадать слово. ",
+            "welcome2": " У вас есть 5 попыток, чтобы угадать слово. ",
             "word request": "Введите ваше слово: ",
             "congrats": "Поздравляем! Вы угадали слово!",
             "bad result": "К сожалению, вы не угадали слово...",
