@@ -12,4 +12,32 @@ slovo[1].append("a")
 letter = np.empty((5, 5), dtype=object)
 letter[0, 1] = 1
 letter[1, 0] = 2
-print(letter)
+
+letter = [[None] * 5] * 5  # строки при присвоении дублируются
+
+letter = [[None for j in range(5)] for i in range(5)]
+for i in range(5):
+    for j in range(5):
+        letter[i][j] = f"{i}{j}"
+
+word_ans = "mouse"
+word_guess = "eeeee"
+marks_list = [0 for i in range(5)]
+word_ans_copy = [x for x in word_ans]
+# сначала находим полное совпадение и удаляем эти буквы
+for letter in range(5):
+    if word_guess[letter] == word_ans_copy[letter]:
+        marks_list[letter] = 2
+        word_ans_copy[letter] = " "
+# смотрим на оставшиеся буквы
+for letter in range(5):
+    if marks_list[letter] != 2:
+        for true_letter in range(5):
+            if (
+                word_guess[letter] == word_ans_copy[true_letter]
+                and true_letter != letter
+            ):
+                marks_list[letter] = 1
+                word_ans_copy[true_letter] = " "
+print(word_ans_copy)
+print(marks_list)
