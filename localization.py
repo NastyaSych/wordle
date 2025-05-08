@@ -18,7 +18,7 @@ localization = {
             pygame.K_b: "b",
             pygame.K_c: "c",
             pygame.K_d: "d",
-            pygame.K_e: "e ",
+            pygame.K_e: "e",
             pygame.K_f: "f",
             pygame.K_g: "g",
             pygame.K_h: "h",

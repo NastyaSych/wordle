@@ -20,8 +20,8 @@ for i in range(5):
     for j in range(5):
         letter[i][j] = f"{i}{j}"
 
-word_ans = "mouse"
-word_guess = "eeeee"
+word_ans = "apple"
+word_guess = "lelle"
 marks_list = [0 for i in range(5)]
 word_ans_copy = [x for x in word_ans]
 # сначала находим полное совпадение и удаляем эти буквы
@@ -39,5 +39,5 @@ for letter in range(5):
             ):
                 marks_list[letter] = 1
                 word_ans_copy[true_letter] = " "
-print(word_ans_copy)
+# print(word_ans_copy)
 print(marks_list)
