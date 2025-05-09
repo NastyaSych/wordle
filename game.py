@@ -32,8 +32,11 @@ class Game:
 
         pygame.init()
 
+        icon = pygame.image.load("pictures/wordle.png")
+        pygame.display.set_icon(icon)
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Wordle")
+
         self.clock = pygame.time.Clock()
         self.running = True
         self.letter = [[None for j in range(5)] for i in range(5)]
