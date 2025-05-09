@@ -2,23 +2,8 @@ import random
 
 import pygame
 
+from config import COLORS, WINDOW_HEIGHT, WINDOW_WIDTH
 from localization import localization as lc
-
-WINDOW_WIDTH, WINDOW_HEIGHT = 800, 950
-COLORS = {
-    "white": (204, 204, 255),
-    "back": (93, 63, 211),
-    "text": (25, 25, 112),
-    2: "green",
-    1: "yellow",
-    0: (204, 204, 255),
-}
-
-
-pygame.init()
-
-font = pygame.font.Font("font/RuthlessSketch.ttf", 35)
-font_let = pygame.font.Font("font/RuthlessSketch.ttf", 95)
 
 
 class Box(pygame.sprite.Sprite):
@@ -31,7 +16,7 @@ class Box(pygame.sprite.Sprite):
 
 
 class Letter(pygame.sprite.Sprite):
-    def __init__(self, letter, x, y, groups):
+    def __init__(self, letter, x, y, groups, font_let):
         super().__init__(groups)
         self.let = letter
         self.image = font_let.render(self.let, False, COLORS["text"])
@@ -44,6 +29,9 @@ class Letter(pygame.sprite.Sprite):
 class Game:
     def __init__(self):
         # setup
+
+        pygame.init()
+
         self.display_surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Wordle")
         self.clock = pygame.time.Clock()
@@ -58,6 +46,10 @@ class Game:
         self.result = 0
         self.word_ans = ""
 
+        # шрифты
+        self.font = pygame.font.Font("font/RuthlessSketch.ttf", 35)
+        self.font_let = pygame.font.Font("font/RuthlessSketch.ttf", 95)
+
         # groups
         self.box_sprites = pygame.sprite.Group()
         self.letter_sprites = pygame.sprite.Group()
@@ -67,17 +59,26 @@ class Game:
             for y in range(5):
                 Box(x, y, self.box_sprites)
 
+    def color_from_mark(self, mark):
+        match mark:
+            case 2:
+                return "yes"
+            case 1:
+                return "almost"
+            case 0:
+                return "no"
+
     def get_phrase(self, message, type="message", place="up", only_rect=False):
         match type:
             case "button":
-                text = font_let.render(message, False, COLORS["text"])
+                text = self.font_let.render(message, False, COLORS["text"])
                 match place:
                     case "right":
                         point = (150, 700)
                     case "left":
                         point = (650, 700)
             case "message":
-                text = font.render(message, False, COLORS["text"])
+                text = self.font.render(message, False, COLORS["text"])
                 match place:
                     case "up":
                         point = (400, 100)
@@ -110,7 +111,8 @@ class Game:
                         word_ans_copy[true_i] = None
         answer = 0
         for i in range(5):
-            Box(i, y, self.box_sprites, color=COLORS[marks_list[i]])
+            clr = COLORS[self.color_from_mark(marks_list[i])]
+            Box(i, y, self.box_sprites, color=clr)
             answer += int(marks_list[i] == 2)
         return answer
 
@@ -120,6 +122,7 @@ class Game:
             self.x_point,
             self.y_point,
             self.letter_sprites,
+            self.font_let,
         )
         if self.x_point != 4:
             self.x_point += 1
@@ -145,6 +148,11 @@ class Game:
         self.try_num += 1
         if self.result == 5 or self.try_num > 5:
             self.can = False
+
+    def show_mes(self, aim, pos):
+        self.display_surface.blit(
+            *self.get_phrase(lc[self.lan]["message"][aim], "message", pos)
+        )
 
     def run(self):
         while self.running:
@@ -194,11 +202,7 @@ class Game:
             self.display_surface.fill(COLORS["back"])
             match self.screen:
                 case 1:
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["choose lang"], "message", "center"
-                        )
-                    )
+                    self.show_mes("choose lang", "center")
                     pygame.draw.rect(
                         self.display_surface,
                         COLORS["white"],
@@ -218,36 +222,16 @@ class Game:
                     )
                     self.display_surface.blit(*self.get_phrase("ru", "button", "left"))
                 case 2:
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["welcome"], "message", "up"
-                        )
-                    )
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["welcome2"], "message", "center"
-                        )
-                    )
+                    self.show_mes("welcome", "up")
+                    self.show_mes("welcome2", "center")
                 case 3:
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["word request"], "message", "up"
-                        )
-                    )
+                    self.show_mes("word request", "up")
                     self.box_sprites.draw(self.display_surface)
                     self.letter_sprites.draw(self.display_surface)
                 case 4:
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["bad result"], "message", "center"
-                        )
-                    )
+                    self.show_mes("bad result", "center")
                 case 5:
-                    self.display_surface.blit(
-                        *self.get_phrase(
-                            lc[self.lan]["message"]["congrats"], "message", "center"
-                        )
-                    )
+                    self.show_mes("congrats", "center")
                 case 6:
                     self.running = False
             pygame.display.update()

@@ -1,7 +1,5 @@
 import pygame
 
-pygame.init()
-
 localization = {
     "eng": {
         "vocab": ["apple", "crisp", "knife", "mouse", "print", "stone", "world"],
