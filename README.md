@@ -10,4 +10,20 @@ With the [uv](https://docs.astral.sh/uv/): `uv sync`, then `uv run game.py`
 
 ## Screenshots
 
-|![choose lan](screenshots/choose_lan.png)|![eng](screenshots/eng.png)|![ru](screenshots/ru.png)|
+<table>
+<tr>
+<td>
+
+![choose lan](screenshots/choose_lan.png)
+
+</td><td>
+
+![eng](screenshots/eng.png)
+
+</td><td>
+
+![ru](screenshots/ru.png)
+
+</td>
+</tr>
+</table>
