@@ -94,20 +94,20 @@ class Game:
         # 2 - буква на основном месте
         # 1 - буква есть в слове, но не на этом месте
         # 0 - остальное
-        marks_list = [0 for i in range(5)]
-        word_ans_copy = [x for x in self.word_ans]
+        marks_list = [0] * 5
+        word_ans_copy = list(self.word_ans)
         # сначала находим полное совпадение и удаляем эти буквы
         for i in range(5):
             if word_guess[i] == word_ans_copy[i]:
                 marks_list[i] = 2
-                word_ans_copy[i] = "&"
+                word_ans_copy[i] = None
         # смотрим на оставшиеся буквы
         for i in range(5):
             if marks_list[i] != 2:
                 for true_i in range(5):
                     if word_guess[i] == word_ans_copy[true_i] and true_i != i:
                         marks_list[i] = 1
-                        word_ans_copy[true_i] = "&"
+                        word_ans_copy[true_i] = None
         answer = 0
         for i in range(5):
             Box(i, y, self.box_sprites, color=COLORS[marks_list[i]])
